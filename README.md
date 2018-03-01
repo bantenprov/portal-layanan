@@ -11,3 +11,18 @@
 [![Daily Downloads](https://poser.pugx.org/bantenprov/portal-layanan/d/daily)](https://packagist.org/packages/bantenprov/portal-layanan)
 
 Portal layanan Pemerintah Provinsi Banten
+
+
+## Install
+using composer
+~~~
+$ composer require bantenprov/portal-layanan:"dev-master"
+~~~
+
+## Download
+git clone
+~~~
+$ git clone https://github.com/bantenprov/portal-layanan.git
+~~~
+
+## Edit config/App.php
