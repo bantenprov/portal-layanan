@@ -56,10 +56,10 @@
         <div class="form-row mt-4">
 					<div class="col-md">
 						<validate tag="div">
-						<label for="kegiatan">Kegiatan</label>
-						<v-select name="kegiatan" v-model="model.kegiatan" :options="kegiatan" class="mb-4"></v-select>
+						<label for="group_egovernment">GroupEgovernment</label>
+						<v-select name="group_egovernment" v-model="model.group_egovernment" :options="group_egovernment" class="mb-4"></v-select>
 
-						<field-messages name="kegiatan" show="$invalid && $submitted" class="text-danger">
+						<field-messages name="group_egovernment" show="$invalid && $submitted" class="text-danger">
 							<small class="form-text text-success">Looks good!</small>
 							<small class="form-text text-danger" slot="required">Label is a required field</small>
 						</field-messages>
@@ -85,8 +85,8 @@ export default {
   mounted(){
     axios.get('api/layanan/create')
     .then(response => {
-        response.data.kegiatan.forEach(element => {
-          this.kegiatan.push(element);
+        response.data.group_egovernment.forEach(element => {
+          this.group_egovernment.push(element);
         });
         response.data.user.forEach(user_element => {
             this.user.push(user_element);
@@ -103,9 +103,9 @@ export default {
         label: "",
         user: "",
         description: "",
-        kegiatan: "",
+        group_egovernment: "",
       },
-      kegiatan: [],
+      group_egovernment: [],
       user: []
     }
   },
@@ -119,7 +119,7 @@ export default {
         axios.post('api/layanan', {
             label: this.model.label,
             description: this.model.description,
-            kegiatan_id: this.model.kegiatan.id,
+            group_egovernment_id: this.model.group_egovernment.id,
             user_id: this.model.user.id
           })
           .then(response => {

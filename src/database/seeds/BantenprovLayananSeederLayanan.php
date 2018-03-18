@@ -21,15 +21,15 @@ class BantenprovLayananSeederLayanan extends Seeder
         $layanans = (object) [
             (object) [
                 'user_id' => '1',
-                'kegiatan_id' => '1',
-                'label' => 'Kegiatan 1',
-                'description' => 'Kegiatan satu'
+                'group_egovernment_id' => '1',
+                'label' => 'GroupEgovernment 1',
+                'description' => 'GroupEgovernment satu'
             ],
             (object) [
                 'user_id' => '2',
-                'kegiatan_id' => '2',
-                'label' => 'Kegiatan 2',
-                'description' => 'Kegiatan dua',
+                'group_egovernment_id' => '2',
+                'label' => 'GroupEgovernment 2',
+                'description' => 'GroupEgovernment dua',
             ]
         ];
 
@@ -37,7 +37,7 @@ class BantenprovLayananSeederLayanan extends Seeder
             $model = Layanan::updateOrCreate(
                 [
                     'user_id' => $layanan->user_id,
-                    'kegiatan_id' => $layanan->kegiatan_id,
+                    'group_egovernment_id' => $layanan->group_egovernment_id,
                     'label' => $layanan->label,
                     'description' => $layanan->description,
                 ]

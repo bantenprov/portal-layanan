@@ -16,15 +16,15 @@ class Layanan extends Model
         'deleted_at'
     ];
     protected $fillable = [
-        'kegiatan_id',
+        'group_egovernment_id',
         'user_id',
         'label',
         'description'
     ];
 
-    public function kegiatan()
+    public function group_egovernment()
     {
-        return $this->belongsTo('Bantenprov\Kegiatan\Models\Bantenprov\Kegiatan\Kegiatan','kegiatan_id');
+        return $this->belongsTo('Bantenprov\GroupEgovernment\Models\Bantenprov\GroupEgovernment\GroupEgovernment','group_egovernment_id');
     }
 
     public function user()

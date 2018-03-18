@@ -104,9 +104,9 @@ export default {
           titleClass: 'center aligned'
         },
         {
-          name: 'kegiatan.label',
-          title: 'Kegiatan',
-          sortField: 'kegiatan_id',
+          name: 'group_egovernment.label',
+          title: 'GroupEgovernment',
+          sortField: 'group_egovernment_id',
           titleClass: 'center aligned'
         },
         {

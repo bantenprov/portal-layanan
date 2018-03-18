@@ -9,7 +9,7 @@ use Bantenprov\BudgetAbsorption\Facades\LayananFacade;
 
 /* Models */
 use Bantenprov\Layanan\Models\Bantenprov\Layanan\Layanan;
-use Bantenprov\Kegiatan\Models\Bantenprov\Kegiatan\Kegiatan;
+use Bantenprov\GroupEgovernment\Models\Bantenprov\GroupEgovernment\GroupEgovernment;
 use App\User;
 
 /* Etc */
@@ -28,14 +28,14 @@ class LayananController extends Controller
      *
      * @return void
      */
-    protected $kegiatanModel;
+    protected $group_egovernmentModel;
     protected $layanan;
     protected $user;
 
-    public function __construct(Layanan $layanan, Kegiatan $kegiatan, User $user)
+    public function __construct(Layanan $layanan, GroupEgovernment $group_egovernment, User $user)
     {
         $this->layanan      = $layanan;
-        $this->kegiatanModel    = $kegiatan;
+        $this->group_egovernmentModel    = $group_egovernment;
         $this->user             = $user;
     }
 
@@ -65,8 +65,8 @@ class LayananController extends Controller
         $perPage = request()->has('per_page') ? (int) request()->per_page : null;
         $response = $query->paginate($perPage);
 
-        foreach($response as $kegiatan){
-            array_set($response->data, 'kegiatan', $kegiatan->kegiatan->label);
+        foreach($response as $group_egovernment){
+            array_set($response->data, 'group_egovernment', $group_egovernment->group_egovernment->label);
         }
 
         foreach($response as $user){
@@ -85,14 +85,14 @@ class LayananController extends Controller
      */
     public function create()
     {
-        $kegiatan = $this->kegiatanModel->all();
+        $group_egovernment = $this->group_egovernmentModel->all();
         $users = $this->user->all();
 
         foreach($users as $user){
             array_set($user, 'label', $user->name);
         }
 
-        $response['kegiatan'] = $kegiatan;
+        $response['group_egovernment'] = $group_egovernment;
         $response['user'] = $users;
         $response['status'] = true;
 
@@ -110,7 +110,7 @@ class LayananController extends Controller
         $layanan = $this->layanan;
 
         $validator = Validator::make($request->all(), [
-            'kegiatan_id' => 'required',
+            'group_egovernment_id' => 'required',
             'user_id' => 'required',
             'label' => 'required|max:16|unique:layanans,label',
             'description' => 'max:255',
@@ -122,7 +122,7 @@ class LayananController extends Controller
             if ($check > 0) {
                 $response['message'] = 'Failed, label ' . $request->label . ' already exists';
             } else {
-                $layanan->kegiatan_id = $request->input('kegiatan_id');
+                $layanan->group_egovernment_id = $request->input('group_egovernment_id');
                 $layanan->user_id = $request->input('user_id');
                 $layanan->label = $request->input('label');
                 $layanan->description = $request->input('description');
@@ -131,7 +131,7 @@ class LayananController extends Controller
                 $response['message'] = 'success';
             }
         } else {
-            $layanan->kegiatan_id = $request->input('kegiatan_id');
+            $layanan->group_egovernment_id = $request->input('group_egovernment_id');
             $layanan->user_id = $request->input('user_id');
             $layanan->label = $request->input('label');
             $layanan->description = $request->input('description');
@@ -155,7 +155,7 @@ class LayananController extends Controller
         $layanan = $this->layanan->findOrFail($id);
 
         $response['layanan'] = $layanan;
-        $response['kegiatan'] = $layanan->kegiatan;
+        $response['group_egovernment'] = $layanan->group_egovernment;
         $response['user'] = $layanan->user;
         $response['status'] = true;
 
@@ -175,7 +175,7 @@ class LayananController extends Controller
         array_set($layanan->user, 'label', $layanan->user->name);
 
         $response['layanan'] = $layanan;
-        $response['kegiatan'] = $layanan->kegiatan;
+        $response['group_egovernment'] = $layanan->group_egovernment;
         $response['user'] = $layanan->user;
         $response['status'] = true;
 
@@ -198,14 +198,14 @@ class LayananController extends Controller
             $validator = Validator::make($request->all(), [
                 'label' => 'required|max:16',
                 'description' => 'max:255',
-                'kegiatan_id' => 'required',
+                'group_egovernment_id' => 'required',
                 'user_id' => 'required',
             ]);
         } else {
             $validator = Validator::make($request->all(), [
                 'label' => 'required|max:16|unique:layanans,label',
                 'description' => 'max:255',
-                'kegiatan_id' => 'required',
+                'group_egovernment_id' => 'required',
                 'user_id' => 'required',
             ]);
         }
@@ -218,7 +218,7 @@ class LayananController extends Controller
             } else {
                 $layanan->label = $request->input('label');
                 $layanan->description = $request->input('description');
-                $layanan->kegiatan_id = $request->input('kegiatan_id');
+                $layanan->group_egovernment_id = $request->input('group_egovernment_id');
                 $layanan->user_id = $request->input('user_id');
                 $layanan->save();
 
@@ -227,7 +227,7 @@ class LayananController extends Controller
         } else {
             $layanan->label = $request->input('label');
             $layanan->description = $request->input('description');
-            $layanan->kegiatan_id = $request->input('kegiatan_id');
+            $layanan->group_egovernment_id = $request->input('group_egovernment_id');
             $layanan->user_id = $request->input('user_id');
             $layanan->save();
 

@@ -15,7 +15,7 @@ class CreateLayanansTable extends Migration
 		Schema::create('layanans', function(Blueprint $table) {
 			$table->increments('id');
 			$table->integer('user_id');
-			$table->integer('kegiatan_id');
+			$table->integer('group_egovernment_id');
 			$table->string('label')->nullable();
 			$table->string('description')->nullable();
 			$table->timestamps();

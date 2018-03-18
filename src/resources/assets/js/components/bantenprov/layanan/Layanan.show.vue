@@ -34,7 +34,7 @@
 
         <div class="form-row mt-4">
 					<div class="col-md">
-						<b>Kegiatan :</b> {{ model.kegiatan.label }}
+						<b>GroupEgovernment :</b> {{ model.group_egovernment.label }}
 					</div>
 				</div>
 
@@ -52,7 +52,7 @@ export default {
           this.model.label = response.data.layanan.label;
           this.model.old_label = response.data.layanan.label;
           this.model.description = response.data.layanan.description;
-          this.model.kegiatan = response.data.kegiatan;
+          this.model.group_egovernment = response.data.group_egovernment;
           this.model.user = response.data.user;
         } else {
           alert('Failed');
@@ -65,8 +65,8 @@ export default {
 
       axios.get('api/layanan/create')
       .then(response => {
-          response.data.kegiatan.forEach(element => {
-            this.kegiatan.push(element);
+          response.data.group_egovernment.forEach(element => {
+            this.group_egovernment.push(element);
           });
       })
       .catch(function(response) {
@@ -80,9 +80,9 @@ export default {
         label: "",
         description: "",
         user:"",
-        kegiatan: "",
+        group_egovernment: "",
       },
-      kegiatan: []
+      group_egovernment: []
     }
   },
   methods: {
@@ -96,7 +96,7 @@ export default {
             label: this.model.label,
             description: this.model.description,
             old_label: this.model.old_label,
-            kegiatan_id: this.model.kegiatan.id
+            group_egovernment_id: this.model.group_egovernment.id
           })
           .then(response => {
             if (response.data.status == true) {
