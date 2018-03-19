@@ -17,19 +17,19 @@ Layanan
 - Development snapshot
 
 ```bash
-$ composer require bantenprov/layanan:dev-master
+$ composer require bantenprov/portal-layanan:dev-master
 ```
 
 - Latest release:
 
 ```bash
-$ composer require bantenprov/layanan
+$ composer require bantenprov/portal-layanan
 ```
 
 ### Download via github
 
 ```bash
-$ git clone https://github.com/bantenprov/layanan.git
+$ git clone https://github.com/bantenprov/portal-layanan.git
 ```
 
 #### Edit `config/app.php` :
