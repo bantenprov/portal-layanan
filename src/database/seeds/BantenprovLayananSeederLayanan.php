@@ -22,14 +22,16 @@ class BantenprovLayananSeederLayanan extends Seeder
             (object) [
                 'user_id' => '1',
                 'group_egovernment_id' => '1',
-                'label' => 'GroupEgovernment 1',
-                'description' => 'GroupEgovernment satu'
+                'sector_egovernment_id' => '1',
+                'label' => 'layanan 1',
+                'description' => 'layanan satu'
             ],
             (object) [
                 'user_id' => '2',
                 'group_egovernment_id' => '2',
-                'label' => 'GroupEgovernment 2',
-                'description' => 'GroupEgovernment dua',
+                'sector_egovernment_id' => '2',
+                'label' => 'layanan 2',
+                'description' => 'layanan dua',
             ]
         ];
 
@@ -38,6 +40,7 @@ class BantenprovLayananSeederLayanan extends Seeder
                 [
                     'user_id' => $layanan->user_id,
                     'group_egovernment_id' => $layanan->group_egovernment_id,
+                    'sector_egovernment_id' => $layanan->sector_egovernment_id,
                     'label' => $layanan->label,
                     'description' => $layanan->description,
                 ]
