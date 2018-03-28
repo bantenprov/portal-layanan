@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <i class="fa fa-table" aria-hidden="true"></i> Layanan
+      <i class="fa fa-table" aria-hidden="true"></i> Portal Layanan
 
       <ul class="nav nav-pills card-header-pills pull-right">
         <li class="nav-item">
@@ -98,12 +98,6 @@ export default {
           titleClass: 'center aligned'
         },
         {
-          name: 'user.name',
-          title: 'Username',
-          sortField: 'user_id',
-          titleClass: 'center aligned'
-        },
-        {
           name: 'group_egovernment.label',
           title: 'Group',
           sortField: 'group_egovernment_id',
@@ -119,6 +113,19 @@ export default {
           name: 'description',
           title: 'Description',
           sortField: 'description',
+          titleClass: 'center aligned'
+        },
+        {
+          name: 'link',
+          title: 'Link',
+          sortField: 'link',
+          titleClass: 'center aligned',
+          callback:'url_to'
+        },
+        {
+          name: 'user.name',
+          title: 'Username',
+          sortField: 'user_id',
           titleClass: 'center aligned'
         },
         {
@@ -156,11 +163,14 @@ export default {
     }
   },
   methods: {
+    url_to(value){ 
+      return "<a href='"+value+"' target='_blank'>"+value+"</a>" 
+    },
     createRow() {
       window.location = '#/admin/layanan/create';
     },
     viewRow(rowData) {
-      window.location = '#/admin/layanan/' + rowData.id;
+      window.location = '#/layanan/' + rowData.id;
     },
     editRow(rowData) {
       window.location = '#/admin/layanan/' + rowData.id + '/edit';

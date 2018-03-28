@@ -19,6 +19,7 @@ class CreateLayanansTable extends Migration
 			$table->integer('sector_egovernment_id');
 			$table->string('label')->nullable();
 			$table->string('description')->nullable();
+			$table->string('link')->nullable();
 			$table->timestamps();
 			$table->softDeletes();
 		});

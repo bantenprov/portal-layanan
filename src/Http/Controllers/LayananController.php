@@ -66,19 +66,7 @@ class LayananController extends Controller
         }
 
         $perPage = request()->has('per_page') ? (int) request()->per_page : null;
-        $response = $query->paginate($perPage);
-
-        foreach($response as $group_egovernment){
-            array_set($response->data, 'group_egovernment', $group_egovernment->group_egovernment->label);
-        }
-
-        foreach($response as $sector_egovernment){
-            array_set($response->data, 'sector_egovernment', $sector_egovernment->sector_egovernment->label);
-        }
-
-        foreach($response as $user){
-            array_set($response->data, 'user', $user->user->name);
-        }
+        $response = $query->with('user')->with('group_egovernment')->with('sector_egovernment')->paginate($perPage);
 
         return response()->json($response)
             ->header('Access-Control-Allow-Origin', '*')
@@ -122,8 +110,9 @@ class LayananController extends Controller
             'group_egovernment_id' => 'required',
             'sector_egovernment_id' => 'required',
             'user_id' => 'required',
-            'label' => 'required|max:255|unique:layanans,label',
-            'description' => 'max:255',
+            'label' => 'required',
+            'description' => 'required',
+            'link' => 'required'
         ]);
 
         if($validator->fails()){
@@ -137,6 +126,7 @@ class LayananController extends Controller
                 $layanan->user_id = $request->input('user_id');
                 $layanan->label = $request->input('label');
                 $layanan->description = $request->input('description');
+                $layanan->link = $request->input('link');
                 $layanan->save();
 
                 $response['message'] = 'success';
@@ -147,6 +137,7 @@ class LayananController extends Controller
             $layanan->user_id = $request->input('user_id');
             $layanan->label = $request->input('label');
             $layanan->description = $request->input('description');
+            $layanan->link = $request->input('link');
             $layanan->save();
             $response['message'] = 'success';
         }
@@ -204,49 +195,36 @@ class LayananController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   
+        $response = array();
+        $message  = array();
+
         $layanan = $this->layanan->findOrFail($id);
 
-        if ($request->input('old_label') == $request->input('label'))
-        {
             $validator = Validator::make($request->all(), [
-                'label' => 'required|max:255',
-                'description' => 'max:255',
+                'label' => 'required',
+                'description' => 'required',
                 'group_egovernment_id' => 'required',
                 'sector_egovernment_id' => 'required',
                 'user_id' => 'required',
+                'link' => 'required'
             ]);
-        } else {
-            $validator = Validator::make($request->all(), [
-                'label' => 'required|max:255|unique:layanans,label',
-                'description' => 'max:255',
-                'group_egovernment_id' => 'required',
-                'sector_egovernment_id' => 'required',
-                'user_id' => 'required',
-            ]);
-        }
+            
+        if($validator->fails()){
 
-        if ($validator->fails()) {
-            $check = $layanan->where('label',$request->label)->whereNull('deleted_at')->count();
-
-            if ($check > 0) {
-                $response['message'] = 'Failed, label ' . $request->label . ' already exists';
-            } else {
-                $layanan->label = $request->input('label');
-                $layanan->description = $request->input('description');
-                $layanan->group_egovernment_id = $request->input('group_egovernment_id');
-                $layanan->sector_egovernment_id = $request->input('sector_egovernment_id');
-                $layanan->user_id = $request->input('user_id');
-                $layanan->save();
-
-                $response['message'] = 'success';
-            }
+                foreach($validator->messages()->getMessages() as $key => $error){
+                    foreach($error AS $error_get) {
+                        array_push($message, $error_get. "\n");
+                    }                
+                } 
+                $response['message'] = $message;
         } else {
             $layanan->label = $request->input('label');
             $layanan->description = $request->input('description');
             $layanan->group_egovernment_id = $request->input('group_egovernment_id');
             $layanan->sector_egovernment_id = $request->input('sector_egovernment_id');
             $layanan->user_id = $request->input('user_id');
+            $layanan->link = $request->input('link');
             $layanan->save();
 
             $response['message'] = 'success';
