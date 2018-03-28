@@ -40,7 +40,7 @@
 
         <div class="form-row mt-4">
           <div class="col-md">
-           {{ model.link }}
+          <b> <a v-bind:href="model.link" target='_blank'> {{ model.link }} </a></b>
           </div>
         </div>
 
