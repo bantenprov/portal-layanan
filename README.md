@@ -17,19 +17,19 @@ Layanan
 - Development snapshot
 
 ```bash
-$ composer require bantenprov/portal-layanan:dev-master
+$ composer require bantenprov/layanan:dev-master
 ```
 
 - Latest release:
 
 ```bash
-$ composer require bantenprov/portal-layanan
+$ composer require bantenprov/layanan
 ```
 
 ### Download via github
 
 ```bash
-$ git clone https://github.com/bantenprov/portal-layanan.git
+$ git clone https://github.com/bantenprov/layanan.git
 ```
 
 #### Edit `config/app.php` :
@@ -83,6 +83,42 @@ $ php artisan vendor:publish --tag=layanan-public
 #### Tambahkan route di dalam file : `resources/assets/js/routes.js` :
 
 ```javascript
+function layout(name) {
+  return function(resolve) {
+    require(['./layouts/' + name + '.vue'], resolve);
+  }
+}
+
+let routes = [
+  {
+    path: '/',
+    name: 'home',
+    component: resolve => require(['./components/views/Home.vue'], resolve),
+  },
+   //==...
+
+  {
+    path: '/layanan/:id',
+    name: 'home',
+    component: resolve => require(['./components/bantenprov/layanan/Layanan.show.vue'], resolve),
+    meta: {
+        title: "Portal Layanan"
+    }
+  },
+
+  //==..
+  
+  {
+    path: '/sign-in',
+    name: 'sign-in',
+    component: resolve => require(['./components/views/SignIn.vue'], resolve),
+    meta: {
+      title: "Sign in"
+    }
+  },
+```
+
+```javascript
 {
     path: '/dashboard',
     redirect: '/dashboard/home',
@@ -97,7 +133,7 @@ $ php artisan vendor:publish --tag=layanan-public
             sidebar: resolve => require(['./components/Sidebar.vue'], resolve)
           },
           meta: {
-            title: "Layanan"
+            title: "Portal Layanan"
            }
        },
         //== ...
@@ -120,7 +156,7 @@ $ php artisan vendor:publish --tag=layanan-public
                 sidebar: resolve => require(['./components/Sidebar.vue'], resolve)
             },
             meta: {
-                title: "Layanan"
+                title: "Portal Layanan"
             }
         },
         {
@@ -131,18 +167,7 @@ $ php artisan vendor:publish --tag=layanan-public
                 sidebar: resolve => require(['./components/Sidebar.vue'], resolve)
             },
             meta: {
-                title: "Add Layanan"
-            }
-        },
-        {
-            path: '/admin/layanan/:id',
-            components: {
-                main: resolve => require(['./components/bantenprov/layanan/Layanan.show.vue'], resolve),
-                navbar: resolve => require(['./components/Navbar.vue'], resolve),
-                sidebar: resolve => require(['./components/Sidebar.vue'], resolve)
-            },
-            meta: {
-                title: "View Layanan"
+                title: "Add Portal Layanan"
             }
         },
         {
@@ -153,7 +178,7 @@ $ php artisan vendor:publish --tag=layanan-public
                 sidebar: resolve => require(['./components/Sidebar.vue'], resolve)
             },
             meta: {
-                title: "Edit Layanan"
+                title: "Edit Portal Layanan"
             }
         },
         //== ...
@@ -170,7 +195,7 @@ $ php artisan vendor:publish --tag=layanan-public
     childItem: [
         //== ...
         {
-        name: 'Layanan',
+        name: 'Portal Layanan',
         link: '/dashboard/layanan',
         icon: 'fa fa-angle-double-right'
         },
@@ -187,7 +212,7 @@ $ php artisan vendor:publish --tag=layanan-public
     childItem: [
         //== ...
         {
-        name: 'Layanan',
+        name: 'Portal Layanan',
         link: '/admin/layanan',
         icon: 'fa fa-angle-double-right'
         },
